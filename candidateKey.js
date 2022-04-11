@@ -10,7 +10,8 @@
 /**@type {(relation: string[][]) => number} */
 function solution(relation) {
   let answer = 0
-
+  let maxFieldLen = relation[0].length
+  let uniqueMap = {}
   let candidateKeyMap = new CandidateKey()
 
   for (let i = 0; i < relation[0].length; i++) {
@@ -19,9 +20,31 @@ function solution(relation) {
     }
   }
 
-  candidateKeyMap.makeUniqueMap()
+  uniqueMap = { ...candidateKeyMap.makeUniqueMap() }
+
+  for (let i = 0; i < maxFieldLen; i++) {}
 
   return answer
+}
+
+/**@type {(num: number  arr: (number|string)[])=>string[]} */
+function pickNum(num, arr) {
+  if (num === 1) {
+    return [...arr].map((v) => String(v))
+  }
+
+  let pick = []
+  for (let i = 0; i < arr.length; i++) {
+    let target = arr[i]
+    pick.push(...pickNum(num - 1, arr.slice(i + 1)).map((v) => `${target}${v}`))
+  }
+
+  return pick
+}
+
+/**@type {(pickNum: string[]) => string[]} */
+function uniqueAndOrder(pickNum) {
+  return [...new Set(pickNum.map((v) => [...v].sort((a, b) => a - b).join('')))]
 }
 
 class CandidateKey {
@@ -39,6 +62,7 @@ class CandidateKey {
   }
 
   makeUniqueMap() {
+    /**@type {{[x:string]: true}} */
     let uniqueMap = {}
     for (let i in this) {
       let unique = [...new Set(this[i])]
