@@ -2,11 +2,14 @@
   "name": "programmers",
   "version": "1.0.0",
   "description": "",
-  "main": "programmers.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "tsc",
+    "compile-w": "pnpm compile -w"
   },
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "devDependencies": {
+    "@types/node": "^18.7.19",
+    "typescript": "^4.8.3"
+  }
 }

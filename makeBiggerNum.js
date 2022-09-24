@@ -1,32 +1,72 @@
+// https://programmers.co.kr/learn/courses/30/lessons/42883?language=javascript
 // 문제.
 // 0 또는 양의 정수가 주어졌을 때, 정수를 이어 붙여 만들 수 있는 가장 큰 수를 알아내 주세요.
 // 예를 들어, 주어진 정수가 [6, 10, 2]라면 [6102, 6210, 1062, 1026, 2610, 2106]를 만들 수 있고, 이중 가장 큰 수는 6210입니다.
 
 // 전략
 /**
- * 다음 방법 중 하나를 사용한다.
- * 1. 순서대로 조합하는 함수를 구성한 뒤, max로 찾아야 한다 (시간 엄청 걸릴듯 하다)
- * 2. 문제가 제시하는 방법으로 정렬할 수 있는 sort알고리즘을 구현한다.
- *
- * '001'과 같은 문자열은 '1'로 변해야 하기 때문에 숫자로 형변환 후에 문자열 출력 해야 한다.
+ * 1. 첫번째 요소부터 순회하며 다음 요소의 숫자상태의 값이 더 크다면 해당 요소를 제거한다.
+ * 2. 제거를 수행한 뒤 다시 첫번째 요소부터 반복한다. (k의 수만큼)
  */
 
-// 방법 - sort알고리즘 구현
+// 방법
 /**
- * 1. 기본 sort메서드의 규칙을 지킨다. (인수 a, b가 있을때 반환값이 음수일 경우 a가 b보다 앞에 위치하게 된다.)
- * 2. 위 문제 예시에서 6은 2와 10보다 앞에 위치해야 하며, 2는 10보다 앞에 위치해야 한다. (배열의 index상에서)
- *
- * 3. sort메서드는 원본 배열을 변경시키므로 slice한 뒤 sort한다.
+ * 1. 제거방법 = 문자열의 slice를 통해 제거
+ * 2. 전략의 내용에 맞게 제거함.
+ * 3. 만약 모든 요소가 다음요소에 대해 숫자상태의 값이 우위에 있다면 뒤에서부터 k개 제거
  */
 
-/**@type {(numbers:number[])} */
-function solution(numbers) {
-  let temp = numbers.slice()
-  temp.sort((a, b) => {
-    let aa = Number(`${a}${b}`)
-    let bb = Number(`${b}${a}`)
-    return bb - aa
-  })
+// /**
+//  * @param { string } number
+//  * @param { number } k
+//  */
+// function solution(number, k) {
+//   while (k) {
+//     for (let i = 0; i < number.length; i++) {
+//       let curr = number[i]
+//       let next = number[i + 1]
 
-  return String(BigInt(temp.join('')))
+//       if (typeof next === 'undefined') {
+//         number = number.slice(0, -k)
+//         k = 0
+//         break
+//       }
+
+//       let [numCurr, numNext] = [curr, next].map((v) => Number(v))
+
+//       if (numCurr < numNext) {
+//         number = number.slice(0, i) + number.slice(i + 1)
+//         k -= 1
+//         break
+//       }
+//     }
+//   }
+//   return number
+// }
+
+/**
+ * @param { string } number
+ * @param { number } k
+ */
+function solution(number, k) {
+  let numbers = [...number].map((v) => Number(v))
+  while (k) {
+    for (let i = 0; i < numbers.length; i++) {
+      let curr = numbers[i]
+      let next = numbers[i + 1]
+
+      if (typeof next === 'undefined') {
+        numbers.splice(-k, k)
+        k = 0
+        break
+      }
+
+      if (curr < next) {
+        numbers.splice(i, 1)
+        k -= 1
+        break
+      }
+    }
+  }
+  return numbers.join('')
 }
