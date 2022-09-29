@@ -30,7 +30,7 @@ function solution(today: string, terms: string[], privacies: string[]) {
     terms.map((v) => {
       let [term, expM] = v.split(' ')
       return [term, Number(expM)]
-    })
+    }),
   )
 
   let result: number[] = []

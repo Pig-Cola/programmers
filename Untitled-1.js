@@ -11,7 +11,7 @@ async function renameIconFile(dir) {
   let result = await Promise.all(
     files.map((v) => {
       return fs.promises.stat(path.join(dir, v))
-    })
+    }),
   )
   let name = /.*Name=(?<name>[A-Za-z_ \-]+).*/
   let state = /.*State=(?<state>[A-Za-z_ \-]+).*/

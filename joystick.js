@@ -46,7 +46,7 @@ function solution(name) {
     ...name
       .replace(/[^A]/g, '|')
       .split('|')
-      .map((v) => v.length)
+      .map((v) => v.length),
   )
   let target = name.indexOf('A'.repeat(maxLen))
   let prev = name.slice(target + maxLen)
@@ -57,7 +57,7 @@ function solution(name) {
     ...prev
       .replace(/[^A]/g, '|')
       .split('|')
-      .map((v) => v.length)
+      .map((v) => v.length),
   )
   // 연속된 A를 제외한 prev의 길이
   let prevTempLen = prev.indexOf('A'.repeat(prevMaxLen)) + prevMaxLen === prev.length ? prev.length - prevMaxLen : prev.length

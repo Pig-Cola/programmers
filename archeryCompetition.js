@@ -85,7 +85,7 @@ function maxBy(arr, fn) {
         }
         return a
       },
-      { origin: undefined, value: -Infinity }
+      { origin: undefined, value: -Infinity },
     )
   return max.origin
 }

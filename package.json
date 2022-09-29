@@ -4,12 +4,20 @@
   "description": "",
   "scripts": {
     "compile": "tsc",
-    "compile-w": "pnpm compile -w"
+    "compile-w": "pnpm compile -w",
+    "format-fix": "pnpm prettier . -w",
+    "lint:space": "eslint --rule \"space-in-parens: [2, always]\" --ignore-path \".gitignore\" .",
+    "lint:space-fix": "pnpm lint:space --fix",
+    "format-lint": "pnpm format-fix && pnpm lint:space-fix"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.7.19",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "8.19.0",
+    "prettier": "^2.7.1",
     "typescript": "^4.8.3"
   }
 }

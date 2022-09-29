@@ -18,7 +18,7 @@ function solution(msg) {
     Array(90 - 65 + 1)
       .fill('')
       .map((v, i) => String.fromCharCode(i + 65))
-      .map((v, i) => [v, i + 1])
+      .map((v, i) => [v, i + 1]),
   )
   let zipCount = 27
 
@@ -42,4 +42,3 @@ function solution(msg) {
 
   return answer
 }
-

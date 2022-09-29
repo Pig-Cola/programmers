@@ -22,5 +22,9 @@ function solution(citations) {
       paperCitationCount[j] += 1
     }
   }
-  return Math.max(...Object.entries(paperCitationCount).filter(([key, v])=>v>=key).map(([key, v]) => key))
+  return Math.max(
+    ...Object.entries(paperCitationCount)
+      .filter(([key, v]) => v >= key)
+      .map(([key, v]) => key),
+  )
 }
