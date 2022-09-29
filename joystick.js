@@ -33,34 +33,34 @@
  */
 
 // 알파벳 모음
-const alphabet = Array(90 - 65 + 1)
-  .fill('')
-  .map((v, i) => String.fromCharCode(i + 65))
+const alphabet = Array( 90 - 65 + 1 )
+  .fill( '' )
+  .map( ( v, i ) => String.fromCharCode( i + 65 ) )
 
 /**@type {(name:string)=>number} */
-function solution(name) {
-  const makeName = new MakeName(name.length)
+function solution( name ) {
+  const makeName = new MakeName( name.length )
   let answer = 0
   // skip될 A의 최대 연속 반복 횟수
   let maxLen = Math.max(
     ...name
-      .replace(/[^A]/g, '|')
-      .split('|')
-      .map((v) => v.length),
+      .replace( /[^A]/g, '|' )
+      .split( '|' )
+      .map( ( v ) => v.length ),
   )
-  let target = name.indexOf('A'.repeat(maxLen))
-  let prev = name.slice(target + maxLen)
-  let curr = name.slice(0, target)
-  let skip = name.slice(target, target + maxLen)
+  let target = name.indexOf( 'A'.repeat( maxLen ) )
+  let prev = name.slice( target + maxLen )
+  let curr = name.slice( 0, target )
+  let skip = name.slice( target, target + maxLen )
   // prev에 존재하는 연속된 A의 길의
   let prevMaxLen = Math.max(
     ...prev
-      .replace(/[^A]/g, '|')
-      .split('|')
-      .map((v) => v.length),
+      .replace( /[^A]/g, '|' )
+      .split( '|' )
+      .map( ( v ) => v.length ),
   )
   // 연속된 A를 제외한 prev의 길이
-  let prevTempLen = prev.indexOf('A'.repeat(prevMaxLen)) + prevMaxLen === prev.length ? prev.length - prevMaxLen : prev.length
+  let prevTempLen = prev.indexOf( 'A'.repeat( prevMaxLen ) ) + prevMaxLen === prev.length ? prev.length - prevMaxLen : prev.length
   // skip하지 않을 경우의 길이
   let noSkipLen = curr.length + skip.length + prevTempLen
   const isNotSkip = noSkipLen <= curr.length * 2 - 2 + prev.length && noSkipLen <= prev.length * 2 - 1 + curr.length
@@ -69,31 +69,31 @@ function solution(name) {
   const init = isStaticDirection ? 0 : prev.length + curr.length - 1
 
   // 스킵을 할 경우 스킵될 부분을 가장 오른쪽으로 밀어 계산하기 용이하게 구조만 변경
-  if (isNotSkip) {
+  if ( isNotSkip ) {
     name = curr + skip + prev
     currLegion = 0
   } else {
     name = prev + curr + skip
 
-    for (let i = 0; i < currLegion; i++) {
+    for ( let i = 0; i < currLegion; i++ ) {
       makeName.goNext()
     }
   }
 
   // 현재 커서위치와 방향에 맞게 진행하기 위한 초기 위치의 차이가 있으면
   // 이를 동기시켜 주면서 해당 레버를 조작
-  if (currLegion !== init) {
+  if ( currLegion !== init ) {
     let step = init - currLegion
     let direction = step > 0
-    step = Math.abs(step)
+    step = Math.abs( step )
 
-    if (step <= name.length / 2) {
-      for (let i = 0; i < step; i++) {
+    if ( step <= name.length / 2 ) {
+      for ( let i = 0; i < step; i++ ) {
         direction ? makeName.goNext() : makeName.goPrev()
         answer += 1
       }
     } else {
-      for (let i = 0; i < name.length - step; i++) {
+      for ( let i = 0; i < name.length - step; i++ ) {
         direction ? makeName.goPrev() : makeName.goNext()
         answer += 1
       }
@@ -102,32 +102,32 @@ function solution(name) {
   }
 
   // 현재 위치와 방향에 맞는 레버 조작
-  for (let i = init; i < name.length && i >= 0; i += isStaticDirection ? 1 : -1) {
+  for ( let i = init; i < name.length && i >= 0; i += isStaticDirection ? 1 : -1 ) {
     let char = name[i]
-    let currChar = makeName.getOrigin(i).value
+    let currChar = makeName.getOrigin( i ).value
     let step = char.charCodeAt() - currChar.charCodeAt()
 
-    if (char === currChar) {
+    if ( char === currChar ) {
       continue
     }
 
-    if (i !== currLegion) {
+    if ( i !== currLegion ) {
       let legStep = i - currLegion
 
-      for (let j = 0; j < Math.abs(legStep); j++) {
+      for ( let j = 0; j < Math.abs( legStep ); j++ ) {
         isStaticDirection ? makeName.goNext() : makeName.goPrev()
         answer += 1
       }
       currLegion = i
     }
 
-    if (step <= alphabet.length / 2) {
-      for (let j = 0; j < step; j++) {
+    if ( step <= alphabet.length / 2 ) {
+      for ( let j = 0; j < step; j++ ) {
         makeName.curr.val.goNext()
         answer += 1
       }
     } else {
-      for (let j = 0; j < alphabet.length - step; j++) {
+      for ( let j = 0; j < alphabet.length - step; j++ ) {
         makeName.curr.val.goPrev()
         answer += 1
       }
@@ -149,7 +149,7 @@ function solution(name) {
 class Nodes {
   // 이중 연결이 필요하기 때문에
   // next와 prev라는 두개의 포인터가 필요하다.
-  constructor(val) {
+  constructor( val ) {
     this.val = val
     this.next = null
     this.prev = null
@@ -158,37 +158,37 @@ class Nodes {
   get value() {
     // 만약 값이 또다른 이중 원형 연결 리스트일 경우
     // 그 이중 원형 연결 리스트에서의 값을 가져온다.
-    if (this.val instanceof DublyCircularLinkedList) {
+    if ( this.val instanceof DublyCircularLinkedList ) {
       return this.val.value
     } else {
       return this.val
     }
   }
 
-  setNext(Nodes) {
+  setNext( Nodes ) {
     this.next = Nodes
   }
-  setPrev(Nodes) {
+  setPrev( Nodes ) {
     this.next = Nodes
   }
 }
 
 // 이중 원형 연결 리스트 생성
 class DublyCircularLinkedList {
-  constructor(template) {
+  constructor( template ) {
     this.curr = null
-    this.init(template)
+    this.init( template )
   }
 
   // 이중 원형 연결 리스트를 생성할 때에
   // 삽입된 Array를 처리하는 함수
-  _init(template) {
-    if (Array.isArray(template)) {
-      let temp = template.map((v) => new Nodes(v))
-      temp.forEach((v, i, arr) => {
+  _init( template ) {
+    if ( Array.isArray( template ) ) {
+      let temp = template.map( ( v ) => new Nodes( v ) )
+      temp.forEach( ( v, i, arr ) => {
         v.next = arr[arr.length > i + 1 ? i + 1 : 0]
-        v.prev = arr[(i || arr.length) - 1]
-      })
+        v.prev = arr[( i || arr.length ) - 1]
+      } )
 
       this.curr = temp[0]
 
@@ -198,19 +198,19 @@ class DublyCircularLinkedList {
 
   // _init함수가 단 한번만 호출되게 하고
   // 이후 재 호출될 경우 그 값을 그대로 돌려주는 함수
-  init = (() => {
+  init = ( () => {
     let once = true
     let returnValue = null
 
-    return (template) => {
-      if (!once) {
+    return ( template ) => {
+      if ( !once ) {
         return returnValue
       }
 
-      returnValue = this._init(template)
+      returnValue = this._init( template )
       once = false
     }
-  })()
+  } )()
 
   // 현재 커서가 가르키고 있는 Node의 값
   get value() {
@@ -230,22 +230,22 @@ class DublyCircularLinkedList {
 
 class MakeName extends DublyCircularLinkedList {
   // this.origin에 Node가 담겨있는 원래 형태의 Array를 저장.
-  constructor(length) {
-    let temp = Array(length)
-      .fill('')
-      .map((v) => new DublyCircularLinkedList(alphabet))
-    super(temp)
+  constructor( length ) {
+    let temp = Array( length )
+      .fill( '' )
+      .map( ( v ) => new DublyCircularLinkedList( alphabet ) )
+    super( temp )
     this.origin = this.init()
   }
 
   // 모든 노드의 값을 조회. 이때 노드의 값은 이중 원형 연결 리스트 이므로
   // 해당 리스트의 커서가 가르키는 노드의 값이 된다.
   get fullName() {
-    return this.origin.map((v) => v.value).join('')
+    return this.origin.map( ( v ) => v.value ).join( '' )
   }
 
   // 특정한 index번호의 값 또는 Node자체를 조회할 수 있도록 하는 함수
-  getOrigin(idx) {
+  getOrigin( idx ) {
     return this.origin[idx] || {}
   }
 }

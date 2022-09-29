@@ -8,55 +8,55 @@
  */
 
 /**@type {(relation: string[][]) => number} */
-function solution(relation) {
+function solution( relation ) {
   let answer = 0
   let maxFieldLen = relation[0].length
   let uniqueMap = {}
   let candidateKeyMap = new CandidateKey()
 
-  for (let i = 0; i < relation[0].length; i++) {
-    for (let j = 0; j < relation.length; j++) {
-      candidateKeyMap.push(relation[j][i], i)
+  for ( let i = 0; i < relation[0].length; i++ ) {
+    for ( let j = 0; j < relation.length; j++ ) {
+      candidateKeyMap.push( relation[j][i], i )
     }
   }
 
   uniqueMap = { ...candidateKeyMap.makeUniqueMap() }
 
-  for (let i = 0; i < maxFieldLen; i++) {}
+  for ( let i = 0; i < maxFieldLen; i++ ) {}
 
   return answer
 }
 
 /**@type {(num: number  arr: (number|string)[])=>string[]} */
-function pickNum(num, arr) {
-  if (num === 1) {
-    return [...arr].map((v) => String(v))
+function pickNum( num, arr ) {
+  if ( num === 1 ) {
+    return [...arr].map( ( v ) => String( v ) )
   }
 
   let pick = []
-  for (let i = 0; i < arr.length; i++) {
+  for ( let i = 0; i < arr.length; i++ ) {
     let target = arr[i]
-    pick.push(...pickNum(num - 1, arr.slice(i + 1)).map((v) => `${target}${v}`))
+    pick.push( ...pickNum( num - 1, arr.slice( i + 1 ) ).map( ( v ) => `${target}${v}` ) )
   }
 
   return pick
 }
 
 /**@type {(pickNum: string[]) => string[]} */
-function uniqueAndOrder(pickNum) {
-  return [...new Set(pickNum.map((v) => [...v].sort((a, b) => a - b).join('')))]
+function uniqueAndOrder( pickNum ) {
+  return [...new Set( pickNum.map( ( v ) => [...v].sort( ( a, b ) => a - b ).join( '' ) ) )]
 }
 
 class CandidateKey {
   /**@type {(value:any, ...keys:(number|string)[])=>void} */
-  push(value, ...keys) {
-    let key = keys.join('')
+  push( value, ...keys ) {
+    let key = keys.join( '' )
     this[key] = this[key] ?? []
-    this[key].push(value)
+    this[key].push( value )
   }
 
   clear() {
-    for (let i in this) {
+    for ( let i in this ) {
       delete this[i]
     }
   }
@@ -64,9 +64,9 @@ class CandidateKey {
   makeUniqueMap() {
     /**@type {{[x:string]: true}} */
     let uniqueMap = {}
-    for (let i in this) {
-      let unique = [...new Set(this[i])]
-      if (unique.length === this[i].length) {
+    for ( let i in this ) {
+      let unique = [...new Set( this[i] )]
+      if ( unique.length === this[i].length ) {
         uniqueMap[i] = true
       }
     }

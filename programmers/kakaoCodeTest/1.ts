@@ -24,23 +24,23 @@
 
 */
 
-function solution(today: string, terms: string[], privacies: string[]) {
-  let toDay = new Date(today)
-  let termsExpMap = Object.fromEntries(
-    terms.map((v) => {
-      let [term, expM] = v.split(' ')
-      return [term, Number(expM)]
-    }),
+function solution( today: string, terms: string[], privacies: string[] ) {
+  const toDay = new Date( today )
+  const termsExpMap = Object.fromEntries(
+    terms.map( ( v ) => {
+      const [term, expM] = v.split( ' ' )
+      return [term, Number( expM )]
+    } ),
   )
 
-  let result: number[] = []
-  privacies.forEach((v, i) => {
-    let [agreeDate, term] = v.split(' ')
-    let targetDate = new Date(agreeDate)
-    targetDate.setMonth(targetDate.getMonth() + termsExpMap[term])
+  const result: number[] = []
+  privacies.forEach( ( v, i ) => {
+    const [agreeDate, term] = v.split( ' ' )
+    const targetDate = new Date( agreeDate )
+    targetDate.setMonth( targetDate.getMonth() + termsExpMap[term] )
 
-    if (!(targetDate < toDay)) result.push(i + 1)
-  })
+    if ( !( targetDate < toDay ) ) result.push( i + 1 )
+  } )
 
   return result
 }

@@ -29,32 +29,32 @@
  * 4. 비어있다면 올바른 괄호 문자열이며, 아니라면 올바르지 않은 괄호 문자열이다.
  */
 
-function solution(s) {
+function solution( s ) {
   var answer = 0
-  for (let i = 0; i < s.length; i++) {
-    s = rotateOnce(s)
+  for ( let i = 0; i < s.length; i++ ) {
+    s = rotateOnce( s )
 
-    if (perfact(s)) {
+    if ( perfact( s ) ) {
       answer += 1
     }
   }
   return answer
 }
 
-function partition(s, position) {
-  return [s.slice(0, position), s.slice(position)]
+function partition( s, position ) {
+  return [s.slice( 0, position ), s.slice( position )]
 }
 
-function rotateOnce(s) {
-  let p = partition(s, 1)
+function rotateOnce( s ) {
+  let p = partition( s, 1 )
   return p[1] + p[0]
 }
 
-function perfact(s) {
+function perfact( s ) {
   /**@type {string[]} */
   let stack = []
-  for (let i of s) {
-    if (!action(i)) {
+  for ( let i of s ) {
+    if ( !action( i ) ) {
       return false
     }
   }
@@ -64,30 +64,30 @@ function perfact(s) {
   // action
   // action
 
-  function action(c) {
-    if ([...'({['].includes(c)) {
-      stack.push(c)
+  function action( c ) {
+    if ( [...'({['].includes( c ) ) {
+      stack.push( c )
     } else {
       let target = stack.pop()
-      if (!target) {
+      if ( !target ) {
         return false
       }
 
-      switch (c) {
+      switch ( c ) {
         case ')': {
-          if (target !== '(') {
+          if ( target !== '(' ) {
             return false
           }
           break
         }
         case '}': {
-          if (target !== '{') {
+          if ( target !== '{' ) {
             return false
           }
           break
         }
         case ']': {
-          if (target !== '[') {
+          if ( target !== '[' ) {
             return false
           }
           break

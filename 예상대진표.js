@@ -32,19 +32,19 @@
  * 두 수에 대한 다음 라운드 위치가 같다면 두 수는 같은 교전선상에 있다고 할 수 있다.
  */
 
-function solution(n, a, b) {
+function solution( n, a, b ) {
   var answer = 1 // 시작하자마자 만나도 1라운드에 만난거다.
-  ;[a, b] = [a, b].map((v) => goNextRound(v))
+  ;[a, b] = [a, b].map( ( v ) => goNextRound( v ) )
 
-  while (Math.abs(a - b) !== 0) {
+  while ( Math.abs( a - b ) !== 0 ) {
     // 두 수 차이가 0이면 이 전라운드에서 만난것이다.
     answer += 1
-    ;[a, b] = [a, b].map((v) => goNextRound(v))
+    ;[a, b] = [a, b].map( ( v ) => goNextRound( v ) )
   }
 
   return answer
 }
 
-function goNextRound(num) {
-  return ~~((num + 1) / 2)
+function goNextRound( num ) {
+  return ~~( ( num + 1 ) / 2 )
 }

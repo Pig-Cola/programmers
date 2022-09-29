@@ -14,17 +14,17 @@
  */
 
 /**@type {(citations:number[])} */
-function solution(citations) {
-  const max = Math.max(...citations)
-  let paperCitationCount = Object.fromEntries(Object.entries(Array(max + 1).fill(0)))
-  for (let i of citations) {
-    for (let j = 0; j <= i; j++) {
+function solution( citations ) {
+  const max = Math.max( ...citations )
+  let paperCitationCount = Object.fromEntries( Object.entries( Array( max + 1 ).fill( 0 ) ) )
+  for ( let i of citations ) {
+    for ( let j = 0; j <= i; j++ ) {
       paperCitationCount[j] += 1
     }
   }
   return Math.max(
-    ...Object.entries(paperCitationCount)
-      .filter(([key, v]) => v >= key)
-      .map(([key, v]) => key),
+    ...Object.entries( paperCitationCount )
+      .filter( ( [key, v] ) => v >= key )
+      .map( ( [key, v] ) => key ),
   )
 }

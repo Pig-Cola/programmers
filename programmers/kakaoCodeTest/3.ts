@@ -51,7 +51,7 @@ class UserData {
   maxPrice: UserDataProp['maxPrice']
   totalPrice: UserDataProp['totalPrice']
 
-  constructor({ consummerPercentage, maxPrice, totalPrice = 0 }: UserDataProp) {
+  constructor( { consummerPercentage, maxPrice, totalPrice = 0 }: UserDataProp ) {
     this.consummerPercentage = consummerPercentage
     this.maxPrice = maxPrice
     this.totalPrice = totalPrice
@@ -62,12 +62,12 @@ class UserData {
   }
 
   clone() {
-    return new UserData(this)
+    return new UserData( this )
   }
-  tryConsum(percentage: number, itemPrice: number) {
-    if (this.isPlusSubscribed) return
-    if (percentage < this.consummerPercentage) return
-    this.totalPrice += itemPrice * ((100 - percentage) / 100)
+  tryConsum( percentage: number, itemPrice: number ) {
+    if ( this.isPlusSubscribed ) return
+    if ( percentage < this.consummerPercentage ) return
+    this.totalPrice += itemPrice * ( ( 100 - percentage ) / 100 )
   }
 }
 
@@ -80,55 +80,55 @@ userDataList = [userData, userData, userData... 유저수]
 
 */
 
-function solution(users: UserList, emoticons: number[]) {
-  let [minPer, maxPer] = utill.getMinMaxDiscountPercentagForUserList(users)
-  let discountPercentageList = Array(1 + (maxPer - minPer) / 10)
-    .fill(true)
-    .map((v, i) => minPer + i * 10)
+function solution( users: UserList, emoticons: number[] ) {
+  const [minPer, maxPer] = utill.getMinMaxDiscountPercentagForUserList( users )
+  const discountPercentageList = Array( 1 + ( maxPer - minPer ) / 10 )
+    .fill( true )
+    .map( ( v, i ) => minPer + i * 10 )
 
-  let userDataGroup = utill.makeUserDataGroupByUserList(users)
-  emoticons.forEach((amount) => {
-    let tempUserDataList = discountPercentageList.map((discount) => {
-      let clonedUserDataGroup = utill.cloneUersDataGroup(userDataGroup)
-      utill.tryConsumUserDataGroup(clonedUserDataGroup, discount, amount)
+  let userDataGroup = utill.makeUserDataGroupByUserList( users )
+  emoticons.forEach( ( amount ) => {
+    const tempUserDataList = discountPercentageList.map( ( discount ) => {
+      const clonedUserDataGroup = utill.cloneUersDataGroup( userDataGroup )
+      utill.tryConsumUserDataGroup( clonedUserDataGroup, discount, amount )
       return clonedUserDataGroup
-    })
+    } )
     userDataGroup = tempUserDataList.flat()
-  })
+  } )
 
-  return utill.calcUserDataGroup(userDataGroup)
+  return utill.calcUserDataGroup( userDataGroup )
 }
 
 const utill = {
-  getMinMaxDiscountPercentagForUserList(userList: UserList) {
-    let discountPercentageList = userList.map((v) => v[0])
-    let [min, max] = [Math.min(...discountPercentageList), Math.max(...discountPercentageList)]
-    return [Math.ceil(min / 10) * 10, Math.ceil(max / 10) * 10] as const
+  getMinMaxDiscountPercentagForUserList( userList: UserList ) {
+    const discountPercentageList = userList.map( ( v ) => v[0] )
+    const [min, max] = [Math.min( ...discountPercentageList ), Math.max( ...discountPercentageList )]
+    return [Math.ceil( min / 10 ) * 10, Math.ceil( max / 10 ) * 10] as const
   },
-  makeUserDataGroupByUserList(userList: UserList) {
-    return [userList.map(([consummerPercentage, maxPrice]) => new UserData({ consummerPercentage, maxPrice }))]
+  makeUserDataGroupByUserList( userList: UserList ) {
+    return [userList.map( ( [consummerPercentage, maxPrice] ) => new UserData( { consummerPercentage, maxPrice } ) )]
   },
-  cloneUersDataGroup(userDataGroup: UserData[][]) {
-    return userDataGroup.map((v) => v.map((vv) => vv.clone()))
+  cloneUersDataGroup( userDataGroup: UserData[][] ) {
+    return userDataGroup.map( ( v ) => v.map( ( vv ) => vv.clone() ) )
   },
-  tryConsumUserDataGroup(userDataGroup: UserData[][], per: number, amount: number) {
-    userDataGroup.forEach((userDataList) => userDataList.forEach((userData) => userData.tryConsum(per, amount)))
+  tryConsumUserDataGroup( userDataGroup: UserData[][], per: number, amount: number ) {
+    userDataGroup.forEach( ( userDataList ) => userDataList.forEach( ( userData ) => userData.tryConsum( per, amount ) ) )
   },
-  calcUserDataList(userDataList: UserData[]) {
-    let calcData = { plusSubcribedCnt: 0, totalPrice: 0 }
-    userDataList.forEach((userData) => {
-      if (userData.isPlusSubscribed) {
+  calcUserDataList( userDataList: UserData[] ) {
+    const calcData = { plusSubcribedCnt: 0, totalPrice: 0 }
+    userDataList.forEach( ( userData ) => {
+      if ( userData.isPlusSubscribed ) {
         calcData.plusSubcribedCnt += 1
       } else {
         calcData.totalPrice += userData.totalPrice
       }
-    })
+    } )
     return calcData
   },
-  calcUserDataGroup(userDataGroup: UserData[][]) {
-    let calcDataList = userDataGroup.map((v) => utill.calcUserDataList(v))
-    let maxSubCnt = Math.max(...calcDataList.map((v) => v.plusSubcribedCnt))
-    let maxTotalPrice = Math.max(...calcDataList.filter((v) => v.plusSubcribedCnt === maxSubCnt).map((v) => v.totalPrice))
+  calcUserDataGroup( userDataGroup: UserData[][] ) {
+    const calcDataList = userDataGroup.map( ( v ) => utill.calcUserDataList( v ) )
+    const maxSubCnt = Math.max( ...calcDataList.map( ( v ) => v.plusSubcribedCnt ) )
+    const maxTotalPrice = Math.max( ...calcDataList.filter( ( v ) => v.plusSubcribedCnt === maxSubCnt ).map( ( v ) => v.totalPrice ) )
 
     return [maxSubCnt, maxTotalPrice]
   },

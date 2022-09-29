@@ -15,11 +15,11 @@
  */
 
 /**@type {(N: number  road: [number, number, number][]  K: number) => number} */
-function solution(N, road, K) {
+function solution( N, road, K ) {
   K += 1
-  let graph = new MakeGraph(road)
-  console.log(graph)
-  return Object.keys(graph.searchVisitableInTime(K)).length
+  let graph = new MakeGraph( road )
+  console.log( graph )
+  return Object.keys( graph.searchVisitableInTime( K ) ).length
 }
 
 class MakeGraph {
@@ -29,18 +29,18 @@ class MakeGraph {
    */
   #nodeMap = {}
   /** @type {(road: [number, number, number][])=>void} */
-  constructor(road) {
-    for (let i of road) {
-      let from = this.__findOrMakeNode(i[0])
-      let to = this.__findOrMakeNode(i[1])
-      this.__addLine(from, to, i[2])
+  constructor( road ) {
+    for ( let i of road ) {
+      let from = this.__findOrMakeNode( i[0] )
+      let to = this.__findOrMakeNode( i[1] )
+      this.__addLine( from, to, i[2] )
     }
     this.start = this.#nodeMap[1]
   }
 
-  __findOrMakeNode(num) {
+  __findOrMakeNode( num ) {
     let temp = this.#nodeMap[num]
-    if (temp) {
+    if ( temp ) {
       return temp
     }
 
@@ -50,35 +50,35 @@ class MakeGraph {
   }
 
   /**@type {(from: node  to: node  time: number)=>void} */
-  __addLine(from, to, time) {
-    let existed = from.next.filter((v) => v.value === to.value)
-    if (existed.length && existed[0].time <= time) {
+  __addLine( from, to, time ) {
+    let existed = from.next.filter( ( v ) => v.value === to.value )
+    if ( existed.length && existed[0].time <= time ) {
       return
     }
 
-    from.next.push({ value: to, time })
-    to.next.push({ value: from, time })
+    from.next.push( { value: to, time } )
+    to.next.push( { value: from, time } )
   }
 
   /**@type {(K: number) => number} */
-  searchVisitableInTime(K) {
+  searchVisitableInTime( K ) {
     /**@type {{[x:number]: boolean}} */
     let visited = {}
     /**@type {[node, number][]} */
     let queue = [[this.start, 1]]
 
-    while (queue.length) {
+    while ( queue.length ) {
       let [temp, totalTime] = queue.shift()
       visited[temp.value] = totalTime
 
-      for (let i of temp.next) {
-        if (visited[i.value.value] && visited[i.value.value] <= i.time + totalTime) {
+      for ( let i of temp.next ) {
+        if ( visited[i.value.value] && visited[i.value.value] <= i.time + totalTime ) {
           continue
         }
 
         let time = i.time + totalTime
-        if (time <= K) {
-          queue.push([i.value, time])
+        if ( time <= K ) {
+          queue.push( [i.value, time] )
         }
       }
     }

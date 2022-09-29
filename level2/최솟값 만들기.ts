@@ -8,14 +8,14 @@ type NumArray = number[]
 
 */
 
-function solution(A: NumArray, B: NumArray) {
-  ;[A, B] = [[...A], [...B]]
+function solution( A: NumArray, B: NumArray ) {
+  [A, B] = [[...A], [...B]]
   let totalAmount = 0
-  A.sort((a, b) => a - b)
-  B.sort((a, b) => b - a)
-  A.forEach((v, i) => {
+  A.sort( ( a, b ) => a - b )
+  B.sort( ( a, b ) => b - a )
+  A.forEach( ( v, i ) => {
     totalAmount += A[i] * B[i]
-  })
+  } )
   return totalAmount
 }
 

@@ -32,17 +32,17 @@ words는 끝말잇기에 사용한 단어들이 순서대로 들어있는 배열
 만약 주어진 단어들로 탈락자가 생기지 않는다면, [0, 0]을 return 해주세요.
 */
 
-function solution(n: number, words: string[]) {
-  let wordAppearedMap = {}
+function solution( n: number, words: string[] ) {
+  const wordAppearedMap = {}
 
   let [turnCount, prevWord] = [-1, '']
-  for (let i = 0; i < words.length; i++) {
-    let isExistPrev = !!prevWord
-    let word = words[i]
-    if (word in wordAppearedMap) {
+  for ( let i = 0; i < words.length; i++ ) {
+    const isExistPrev = !!prevWord
+    const word = words[i]
+    if ( word in wordAppearedMap ) {
       turnCount = i
       break
-    } else if (isExistPrev && word[0] !== prevWord[prevWord.length - 1]) {
+    } else if ( isExistPrev && word[0] !== prevWord[prevWord.length - 1] ) {
       turnCount = i
       break
     }
@@ -50,9 +50,9 @@ function solution(n: number, words: string[]) {
     prevWord = word
   }
 
-  if (turnCount === -1) return [0, 0]
-  let failMan = (turnCount % n) + 1
-  let turn = Math.floor(turnCount / n) + 1
+  if ( turnCount === -1 ) return [0, 0]
+  const failMan = ( turnCount % n ) + 1
+  const turn = Math.floor( turnCount / n ) + 1
 
   return [failMan, turn]
 }

@@ -48,25 +48,25 @@
  * @param { string } number
  * @param { number } k
  */
-function solution(number, k) {
-  let numbers = [...number].map((v) => Number(v))
-  while (k) {
-    for (let i = 0; i < numbers.length; i++) {
+function solution( number, k ) {
+  let numbers = [...number].map( ( v ) => Number( v ) )
+  while ( k ) {
+    for ( let i = 0; i < numbers.length; i++ ) {
       let curr = numbers[i]
       let next = numbers[i + 1]
 
-      if (typeof next === 'undefined') {
-        numbers.splice(-k, k)
+      if ( typeof next === 'undefined' ) {
+        numbers.splice( -k, k )
         k = 0
         break
       }
 
-      if (curr < next) {
-        numbers.splice(i, 1)
+      if ( curr < next ) {
+        numbers.splice( i, 1 )
         k -= 1
         break
       }
     }
   }
-  return numbers.join('')
+  return numbers.join( '' )
 }

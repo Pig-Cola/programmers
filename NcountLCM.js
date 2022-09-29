@@ -7,10 +7,10 @@
 // 2. 위 식에 의해 최소공배수 B는 (m * n) / A 가 된다.
 
 /**@type {(arr:number[])=>number} */
-function solution(arr) {
+function solution( arr ) {
   let totalLCM = arr[0]
-  for (let i = 1; i < arr.length; i++) {
-    totalLCM = lcm(totalLCM, arr[i])
+  for ( let i = 1; i < arr.length; i++ ) {
+    totalLCM = lcm( totalLCM, arr[i] )
   }
   return totalLCM
 }
@@ -24,8 +24,8 @@ function solution(arr) {
 // }
 
 // 두 수에 대한 최대 공약수 : 재귀(recursion) 사용 안함. (반복이 깊어져도 CallStack을 초과하지 않음)
-function gcf(num1, num2) {
-  while (num2 > 0) {
+function gcf( num1, num2 ) {
+  while ( num2 > 0 ) {
     let temp = num1
     num1 = num2
     num2 = temp % num2
@@ -34,6 +34,6 @@ function gcf(num1, num2) {
 }
 
 // 두 수에 대한 최소 공배수
-function lcm(num1, num2) {
-  return (num1 * num2) / gcf(num1, num2)
+function lcm( num1, num2 ) {
+  return ( num1 * num2 ) / gcf( num1, num2 )
 }

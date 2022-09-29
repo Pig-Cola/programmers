@@ -32,22 +32,22 @@
  * @param { number } brown
  * @param { number } yellow
  */
-function solution(brown, yellow) {
+function solution( brown, yellow ) {
   let totalCnt = brown + yellow
-  let ifYellowShape = ifShape(yellow)
-  let ifTotalShape = ifYellowShape.map(([hor, ver]) => [hor + 2, ver + 2])
-  return ifTotalShape.filter(([hor, ver]) => hor * ver === totalCnt)[0]
+  let ifYellowShape = ifShape( yellow )
+  let ifTotalShape = ifYellowShape.map( ( [hor, ver] ) => [hor + 2, ver + 2] )
+  return ifTotalShape.filter( ( [hor, ver] ) => hor * ver === totalCnt )[0]
 }
 
 /**@param { number } num */
-function ifShape(num) {
+function ifShape( num ) {
   /**@type {[number, number][]} */
   let shape = []
-  for (let i = num; i > 0; i--) {
+  for ( let i = num; i > 0; i-- ) {
     let temp = num / i
-    if (Number.isInteger(temp)) {
-      shape.push([i, temp])
+    if ( Number.isInteger( temp ) ) {
+      shape.push( [i, temp] )
     }
   }
-  return shape.filter(([hor, ver]) => hor >= ver)
+  return shape.filter( ( [hor, ver] ) => hor >= ver )
 }

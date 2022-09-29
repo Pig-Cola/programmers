@@ -18,14 +18,14 @@
 /**
  * @type {(people: number[]  limit: number)}
  */
-function solution(people, limit) {
+function solution( people, limit ) {
   let answer = 0
-  let sortedPeople = people.sort((a, b) => a - b)
+  let sortedPeople = people.sort( ( a, b ) => a - b )
 
-  while (sortedPeople.length) {
-    if (sortedPeople.length > 1) {
+  while ( sortedPeople.length ) {
+    if ( sortedPeople.length > 1 ) {
       let [first, second] = [sortedPeople[0], sortedPeople[1]]
-      if (first + second > limit) {
+      if ( first + second > limit ) {
         return sortedPeople.length + answer
       }
     }
@@ -35,7 +35,7 @@ function solution(people, limit) {
     let person = sortedPeople.pop()
     let newLimit = limit - person
 
-    if (sortedPeople[0] <= newLimit) {
+    if ( sortedPeople[0] <= newLimit ) {
       // sortedPeople = sortedPeople.slice(1)
       sortedPeople.shift()
     }

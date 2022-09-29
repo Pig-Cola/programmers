@@ -15,14 +15,14 @@
  * @param {string[]} files
  * @returns {string[]}
  */
-function solution(files) {
+function solution( files ) {
   const [headReg, numReg] = [/[a-zA-Z]+/, /[0-9]+/]
   /** @type {(reg: RegExp) => (str: string) => string} */
-  const getMatch = (reg) => (str) => (str.match(reg) || [''])[0]
-  const [getHead, getNum] = [getMatch(headReg), getMatch(numReg)]
+  const getMatch = ( reg ) => ( str ) => ( str.match( reg ) || [''] )[0]
+  const [getHead, getNum] = [getMatch( headReg ), getMatch( numReg )]
 
   files
-    .map((v) => ({ value: v, head: getHead(v), num: Number(getNum(v)) }))
-    .sort((a, b) => a.num - b.num)
-    .sort((a, b) => {})
+    .map( ( v ) => ( { value: v, head: getHead( v ), num: Number( getNum( v ) ) } ) )
+    .sort( ( a, b ) => a.num - b.num )
+    .sort( ( a, b ) => {} )
 }

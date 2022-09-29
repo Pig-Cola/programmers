@@ -12,28 +12,28 @@
  */
 
 /**@type {(msg:string) => number[]} */
-function solution(msg) {
+function solution( msg ) {
   let answer = []
   let zipWord = Object.fromEntries(
-    Array(90 - 65 + 1)
-      .fill('')
-      .map((v, i) => String.fromCharCode(i + 65))
-      .map((v, i) => [v, i + 1]),
+    Array( 90 - 65 + 1 )
+      .fill( '' )
+      .map( ( v, i ) => String.fromCharCode( i + 65 ) )
+      .map( ( v, i ) => [v, i + 1] ),
   )
   let zipCount = 27
 
-  for (let i = 0; i < msg.length; i++) {
-    for (let j = i; j < msg.length; j++) {
-      let word = msg.slice(i, j + 1)
-      if (word in zipWord) {
-        if (j === msg.length - 1) {
-          answer.push(zipWord[word])
+  for ( let i = 0; i < msg.length; i++ ) {
+    for ( let j = i; j < msg.length; j++ ) {
+      let word = msg.slice( i, j + 1 )
+      if ( word in zipWord ) {
+        if ( j === msg.length - 1 ) {
+          answer.push( zipWord[word] )
           return answer
         }
         continue
       } else {
         zipWord[word] = zipCount++
-        answer.push(zipWord[word.slice(0, -1)])
+        answer.push( zipWord[word.slice( 0, -1 )] )
         i = j - 1
         break
       }

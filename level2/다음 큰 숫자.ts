@@ -15,12 +15,12 @@
 n은 1,000,000 이하의 자연수 입니다.
 */
 
-function solution(n: number) {
-  let oneCountByBinaryN = [...n.toString(2)].filter((v) => v === '1').length
-  
-  for (let m = n + 1; m < 1_000_000; m++) {
-    let oneCountByBinaryM = [...m.toString(2)].filter((v) => v === '1').length
-    if (oneCountByBinaryN === oneCountByBinaryM) return m
+function solution( n: number ) {
+  const oneCountByBinaryN = [...n.toString( 2 )].filter( ( v ) => v === '1' ).length
+
+  for ( let m = n + 1; m < 1_000_000; m++ ) {
+    const oneCountByBinaryM = [...m.toString( 2 )].filter( ( v ) => v === '1' ).length
+    if ( oneCountByBinaryN === oneCountByBinaryM ) return m
   }
 }
 

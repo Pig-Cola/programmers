@@ -109,28 +109,28 @@
 // }
 
 /**@type {(info: string[]  query: string[]) => number[]} */
-function solution(info, query) {
+function solution( info, query ) {
   let answer = []
-  let infoList = info.map((v) => v.split(' '))
-  let queryList = query.map((v) => {
-    let result = v.split(' and ')
+  let infoList = info.map( ( v ) => v.split( ' ' ) )
+  let queryList = query.map( ( v ) => {
+    let result = v.split( ' and ' )
     let last = result.pop()
-    result.push(...last.split(' '))
+    result.push( ...last.split( ' ' ) )
 
     return result
-  })
-  for (let querys of queryList) {
+  } )
+  for ( let querys of queryList ) {
     let result = infoList
-    for (let i = 0; i < querys.length - 1; i++) {
+    for ( let i = 0; i < querys.length - 1; i++ ) {
       let search = querys[i]
-      result = result.filter((v) => {
-        if (search === '-') {
+      result = result.filter( ( v ) => {
+        if ( search === '-' ) {
           return true
         }
         return v[i] === search
-      })
+      } )
     }
-    answer.push(result.filter((v) => Number(v[v.length - 1]) >= Number(querys[querys.length - 1])).length)
+    answer.push( result.filter( ( v ) => Number( v[v.length - 1] ) >= Number( querys[querys.length - 1] ) ).length )
   }
 
   return answer

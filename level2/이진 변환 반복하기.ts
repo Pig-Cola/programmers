@@ -9,14 +9,14 @@ x의 모든 0을 제거.
 */
 
 type Digit = `${number}`
-function solution(s: Digit) {
+function solution( s: Digit ) {
   let totalRepeatCnt = 0
   let totalDeleteCnt = 0
-  for (let i = true; i === true; ) {
-    if (s === '1') break
-    let temp = [...s].filter((v) => v === '1').join('')
-    let deleteCnt = s.length - temp.length
-    s = temp.length.toString(2) as Digit
+  for ( let i = true; i === true; ) {
+    if ( s === '1' ) break
+    const temp = [...s].filter( ( v ) => v === '1' ).join( '' )
+    const deleteCnt = s.length - temp.length
+    s = temp.length.toString( 2 ) as Digit
     totalDeleteCnt += deleteCnt
     totalRepeatCnt += 1
   }

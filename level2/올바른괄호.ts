@@ -15,17 +15,17 @@ ex)
 3. 1번에 대해 판단하는 중 중첩구조가 음수가 된다면 올바르지 않은 괄호이다.
 */
 
-function solution(s: string) {
-  let [firstWord, lastWord] = [s[0], s[s.length - 1]]
+function solution( s: string ) {
+  const [firstWord, lastWord] = [s[0], s[s.length - 1]]
 
-  if (firstWord !== '(') return false
-  if (lastWord !== ')') return false
+  if ( firstWord !== '(' ) return false
+  if ( lastWord !== ')' ) return false
 
   let count = 0
-  for (let i = 0; i < s.length; i++) {
-    if (count < 0) return false
-    let target = s[i]
-    if (target === '(') count += 1
+  for ( let i = 0; i < s.length; i++ ) {
+    if ( count < 0 ) return false
+    const target = s[i]
+    if ( target === '(' ) count += 1
     else count -= 1
   }
   return !count
