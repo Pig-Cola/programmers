@@ -13,11 +13,11 @@
     "isolatedModules": false,
     "incremental": false,
     "baseUrl": ".",
-    "declaration": true,
     "listEmittedFiles": true,
     "preserveWatchOutput": true,
     "outDir": "dist",
-    "declarationDir": "dist/types",
+    // "declaration": true,
+    // "declarationDir": "dist/types",
     "downlevelIteration": true,
     "experimentalDecorators": true
   },
