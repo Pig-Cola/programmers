@@ -55,4 +55,4 @@ function getIdxFromKakao( surveyTarget: kakaoMBTI ) {
   return idxMap[surveyTarget]
 }
 
-export default solution
+export default {}

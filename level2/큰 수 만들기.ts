@@ -38,3 +38,5 @@ function solution( number: Disit, k: number ) {
   }
   return stack.slice( 0, stack.length - k ).join( '' )
 }
+
+export default {}
